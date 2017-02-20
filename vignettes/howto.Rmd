@@ -9,11 +9,38 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+knitr::opts_knit$set(root.dir = file.path(find.package("farsr"),"extdata"))
+library(farsr)
+library(maps)
+```
+farsr package can be used in mutiple ways
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+### First, to load the data from a CSV report file downloaded from FARS to a dataframe
+
+```{r eval=FALSE}
+df <- fars_read(system.file("extdata","accident_2014.csv.bz2",package="farsr"))
+```
+
+### Second, to load the FARS report data for multiple years
+
+
+```{r eval=FALSE}
+mon_year <- fars_read_years(c(2013,2014,2015))
+```
+
+### Third, to generate a summary report for each month of each year from the list of years.
+
+```{r}
+smry <- fars_summarize_years(c(2014,2015))
+```
+
+### Finally, it can generate a map of the give state showing location of each accident
+
+```{r}
+fars_map_state(6,2015)
+```
 
 ## Vignette Info
 
